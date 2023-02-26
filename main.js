@@ -1,6 +1,11 @@
 const cvData  = {
     myDetails: {
         name: "Subodh Kumar",
+        intro:[
+            'Associate Consultant at Globallogic!!',
+            'Frontend Developer by profession!!',
+            'Problem Solver by Passion!!'
+        ],
         contact: {
             call: 8076561176
         },
@@ -26,6 +31,15 @@ const getName = (name) => {
     return nameTag;
 }
 
+const getIntro = () => {
+    const iAm = document.createElement('div');
+    iAm.append('I am ');
+    iAm.setAttribute("class","iam");
+    const nameTag = document.createElement('h3');
+    nameTag.setAttribute("class","intro");
+    iAm.append(nameTag);
+    return iAm;
+}
 const getLink = (content, type) => {
     const linkTag = document.createElement('a');
     linkTag.setAttribute('href', content);
@@ -47,13 +61,31 @@ const getSocialLinks = (socialHandles) =>{
     socialTag.append(getLink(mail,'mail'));
     return socialTag;
 }
+const getFooterContent = (number) => {
+    const footerContent = document.createElement('div');
+    footerContent.setAttribute("class","footer-content");
+    footerContent.innerHTML = `<div>Call me at ${number}</div><div>All Rights reserved &copy; 2023</div>`;
+    return footerContent;
+}
 const createCV = () => {
     const cvBody = document.getElementById("cv-body");
     //cvBody.innerHTML = `<pre>${JSON.stringify(cvData, undefined, 4)}</pre>`;
     const name = getName(cvData?.myDetails?.name);
+    const nameTitle = getIntro()
     const socialLinks = getSocialLinks(cvData?.myDetails?.socialHandles);
+    const footerContent = getFooterContent(cvData?.myDetails?.contact?.call)
     cvBody.append(name);
+    cvBody.append(nameTitle)
     cvBody.append(socialLinks);
+    const footer = document.getElementById('footer');
+    footer.append(footerContent);
+    var typed = new Typed(".intro", {
+        strings: cvData?.myDetails?.intro,
+        typeSpeed: 50,
+        loop: true,
+        backDelay: 900,
+        backSpeed: 30,
+    });
 }
 
 createCV();
